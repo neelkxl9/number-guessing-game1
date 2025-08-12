@@ -1,43 +1,19 @@
 #include <iostream>
-#include <vector>
-#include <string>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int main() {
-    vector<string> tasks;
-    int choice;
+    srand(time(0));
+    int number = rand() % 100 + 1;
+    int guess, tries = 0;
 
-    while (true) {
-        cout << "\n1. Add Task\n2. View Tasks\n3. Delete Task\n4. Exit\nEnter choice: ";
-        cin >> choice;
-        cin.ignore();
-
-        if (choice == 1) {
-            string task;
-            cout << "Enter task: ";
-            getline(cin, task);
-            tasks.push_back(task);
-        } 
-        else if (choice == 2) {
-            cout << "\nYour Tasks:\n";
-            for (int i = 0; i < tasks.size(); i++)
-                cout << i + 1 << ". " << tasks[i] << endl;
-        }
-        else if (choice == 3) {
-            int index;
-            cout << "Enter task number to delete: ";
-            cin >> index;
-            if (index > 0 && index <= tasks.size())
-                tasks.erase(tasks.begin() + index - 1);
-            else
-                cout << "Invalid number!\n";
-        } 
-        else if (choice == 4) {
-            break;
-        } 
-        else {
-            cout << "Invalid choice!\n";
-        }
-    }
-    return 0;
+    cout << "Guess the number (1-100):\n";
+    do {
+        cin >> guess;
+        tries++;
+        if (guess > number) cout << "Too high!\n";
+        else if (guess < number) cout << "Too low!\n";
+        else cout << "Correct! You guessed in " << tries << " tries.\n";
+    } while (guess != number);
 }
